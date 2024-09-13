@@ -4,20 +4,21 @@ import { CommonModule } from '@angular/common';
 import { PostsRoutingModule } from './posts-routing.module';
 import { PostsComponent } from './posts.component';
 import { PostListComponent } from './post-list/post-list.component';
-import { PostDetailComponent } from './post-detail/post-detail.component';
 import { PostCreateComponent } from './post-create/post-create.component';
+import { PaginationComponent } from '../shared/pagination/pagination.component';
 
 
 @NgModule({
   declarations: [
     PostsComponent,
     PostListComponent,
-    PostDetailComponent,
+    PaginationComponent,
     PostCreateComponent
   ],
   imports: [
     CommonModule,
-    PostsRoutingModule
+    PostsRoutingModule,
+    
   ]
 })
 export class PostsModule { }

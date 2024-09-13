@@ -5,13 +5,13 @@ import { HttpInterceptorService } from './core/interceptors/http-interceptor.ser
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { PaginationComponent } from './shared/pagination/pagination.component';
+
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    PaginationComponent
+    
   ],
   imports: [
     BrowserModule,
