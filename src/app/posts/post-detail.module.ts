@@ -4,7 +4,7 @@ import { PostDetailComponent } from './post-detail/post-detail.component';
 import { RouterModule } from '@angular/router';
 
 @NgModule({
-  declarations: [PostDetailComponent],
+  declarations: [],
   imports: [
     CommonModule,
     RouterModule.forChild([

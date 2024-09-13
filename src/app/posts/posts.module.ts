@@ -11,9 +11,9 @@ import { PaginationComponent } from '../shared/pagination/pagination.component';
 @NgModule({
   declarations: [
     PostsComponent,
-    PostListComponent,
-    PaginationComponent,
-    PostCreateComponent
+   
+    
+    
   ],
   imports: [
     CommonModule,
