@@ -9,7 +9,7 @@ export class CacheService {
 
   constructor() {}
 
-  // Get data from the cache
+  
   get(key: string): any | null {
     const cached = this.cache.get(key);
     if (!cached) return null;
@@ -23,18 +23,18 @@ export class CacheService {
     return cached.data;
   }
 
-  // Set data to the cache
+ 
   set(key: string, data: any): void {
     const expiry = Date.now() + this.cacheDuration;
     this.cache.set(key, { data, expiry });
   }
 
-  // Clear specific cache
+  
   clear(key: string): void {
     this.cache.delete(key);
   }
 
-  // Clear all cache
+ 
   clearAll(): void {
     this.cache.clear();
   }
