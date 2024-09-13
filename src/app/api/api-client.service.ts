@@ -1,20 +1,28 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
-import { environment } from '../../../environments/environment';  
+import { Observable, of, throwError } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
+import { environment } from '../../../environments/environment'; 
+import { CacheService } from '../cache/cache.service'; 
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiClientService {
   private apiUrl = environment.apiUrl;
+  cacheService: any;
 
   constructor(private http: HttpClient) { }
 
   // GET all posts
   getPosts(): Observable<any> {
+    const cachedData = this.cacheService.get('posts');
+    if (cachedData) {
+      return of(cachedData);
+    }
+  
     return this.http.get(`${this.apiUrl}/posts`).pipe(
+      tap((data) => this.cacheService.set('posts', data)),  // Cache data
       catchError(this.handleError)
     );
   }
