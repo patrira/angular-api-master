@@ -1,14 +1,23 @@
-<div class="post-detail">
-    <h2>Post Details</h2>
-    
-    <div *ngIf="post">
-      <label>Title:</label>
-      <input [(ngModel)]="post.title" type="text" />
-  
-      <label>Body:</label>
-      <textarea [(ngModel)]="post.body"></textarea>
-  
-      <button (click)="updatePost()">Update Post</button>
+<div class="post-detail-container">
+  <div class="post-content" *ngIf="!isEditing">
+    <h2>{{ post.title }}</h2>
+    <p>{{ post.body }}</p>
+    <div class="buttons">
+      <button (click)="toggleEdit()">Update Post</button>
+      <button (click)="deletePost()">Delete Post</button>
     </div>
   </div>
-  
+
+  <div *ngIf="isEditing">
+    <label>Title:</label>
+    <input [(ngModel)]="post.title" type="text" />
+
+    <label>Body:</label>
+    <textarea [(ngModel)]="post.body"></textarea>
+
+    <div class="buttons">
+      <button (click)="updatePost()">Save Changes</button>
+      <button (click)="toggleEdit()">Cancel</button>
+    </div>
+  </div>
+</div>

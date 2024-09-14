@@ -8,23 +8,23 @@ import { ApiClientService } from '../../api/api-client.service';
 })
 export class PostListComponent implements OnInit {
   posts: any[] = [];
+  paginatedPosts: any[] = [];
+  totalPosts = 0;
   currentPage = 1;
   postsPerPage = 10;
-  totalPosts = 0;
 
   constructor(private apiClient: ApiClientService) {}
 
   ngOnInit(): void {
-    this.fetchPosts(this.currentPage);
+    this.fetchPosts();
   }
 
-  // Fetch paginated posts
-  fetchPosts(page: number): void {
-    const start = (page - 1) * this.postsPerPage;
+  fetchPosts(): void {
     this.apiClient.getPosts().subscribe(
       (data: any[]) => {
+        this.posts = data;
         this.totalPosts = data.length;
-        this.posts = data.slice(start, start + this.postsPerPage);  
+        this.updatePaginatedPosts();
       },
       (error) => {
         console.error('Error fetching posts:', error);
@@ -32,9 +32,14 @@ export class PostListComponent implements OnInit {
     );
   }
 
-  // Handle page change
-  onPageChange(newPage: number): void {
-    this.currentPage = newPage;
-    this.fetchPosts(newPage);
+  onPageChange(page: number): void {
+    this.currentPage = page;
+    this.updatePaginatedPosts();
+  }
+
+  updatePaginatedPosts(): void {
+    const start = (this.currentPage - 1) * this.postsPerPage;
+    const end = start + this.postsPerPage;
+    this.paginatedPosts = this.posts.slice(start, end);
   }
 }

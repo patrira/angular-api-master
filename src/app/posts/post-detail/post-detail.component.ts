@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ApiClientService } from '../../api/api-client.service';
 
 @Component({
@@ -9,11 +9,13 @@ import { ApiClientService } from '../../api/api-client.service';
 })
 export class PostDetailComponent implements OnInit {
   post: any = {};
+  isEditing = false;
   postId: number;
 
   constructor(
     private route: ActivatedRoute,
-    private apiClient: ApiClientService
+    private apiClient: ApiClientService,
+    private router: Router
   ) {
     this.postId = +this.route.snapshot.paramMap.get('id')!;
   }
@@ -22,7 +24,6 @@ export class PostDetailComponent implements OnInit {
     this.getPostDetail();
   }
 
-  // Fetch single post by ID
   getPostDetail(): void {
     this.apiClient.getPostById(this.postId).subscribe(
       (data) => {
@@ -34,14 +35,30 @@ export class PostDetailComponent implements OnInit {
     );
   }
 
-  // Update post
+  toggleEdit(): void {
+    this.isEditing = !this.isEditing;
+  }
+
   updatePost(): void {
     this.apiClient.updatePost(this.postId, this.post).subscribe(
       () => {
+        this.isEditing = false;
         alert('Post updated successfully');
       },
       (error) => {
         console.error('Error updating post:', error);
+      }
+    );
+  }
+
+  deletePost(): void {
+    this.apiClient.deletePost(this.postId).subscribe(
+      () => {
+        alert('Post deleted successfully');
+        this.router.navigate(['/posts']);
+      },
+      (error) => {
+        console.error('Error deleting post:', error);
       }
     );
   }
