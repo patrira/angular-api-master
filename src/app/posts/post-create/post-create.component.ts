@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';  
 import { ApiClientService } from '../../api/api-client.service';
 
 @Component({
@@ -10,16 +11,16 @@ export class PostCreateComponent {
   newPost = {
     title: '',
     body: '',
-    userId: 1  // Mock user
+    userId: 1  
   };
 
-  constructor(private apiClient: ApiClientService) {}
+  constructor(private apiClient: ApiClientService, private router: Router) {}
 
-  // Create a new post
   createPost(): void {
     this.apiClient.createPost(this.newPost).subscribe(
       () => {
         alert('Post created successfully');
+        this.router.navigate(['/posts']);  
       },
       (error) => {
         console.error('Error creating post:', error);
