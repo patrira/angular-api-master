@@ -11,7 +11,7 @@ export class PostCreateComponent {
   newPost = {
     title: '',
     body: '',
-    userId: 1  
+    userId: 1  // Mock user ID
   };
 
   constructor(private apiClient: ApiClientService, private router: Router) {}
@@ -20,7 +20,8 @@ export class PostCreateComponent {
     this.apiClient.createPost(this.newPost).subscribe(
       () => {
         alert('Post created successfully');
-        this.router.navigate(['/posts']);  
+        // After post creation, redirect to page 11
+        this.router.navigate(['/posts'], { queryParams: { page: 11 } });
       },
       (error) => {
         console.error('Error creating post:', error);
