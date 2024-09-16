@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';  // Import ActivatedRoute
 import { ApiClientService } from '../../api/api-client.service';
 
 @Component({
@@ -14,14 +13,10 @@ export class PostListComponent implements OnInit {
   currentPage = 1;
   postsPerPage = 10;
 
-  constructor(private apiClient: ApiClientService, private route: ActivatedRoute) {}
+  constructor(private apiClient: ApiClientService) {}
 
   ngOnInit(): void {
-    // Get the page number from queryParams (for cases like page 11 after creating a post)
-    this.route.queryParams.subscribe(params => {
-      this.currentPage = params['page'] ? +params['page'] : 1;
-      this.fetchPosts();
-    });
+    this.fetchPosts();
   }
 
   fetchPosts(): void {

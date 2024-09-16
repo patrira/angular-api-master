@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';  // Import Router
 import { ApiClientService } from '../../api/api-client.service';
 
 @Component({
@@ -9,9 +9,9 @@ import { ApiClientService } from '../../api/api-client.service';
 })
 export class PostDetailComponent implements OnInit {
   post: any = {};
-  comments: any[] = [];
   isEditing = false;
   postId: number;
+comments: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -23,10 +23,8 @@ export class PostDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.getPostDetail();
-    this.getPostComments();
   }
 
-  // Fetch post details
   getPostDetail(): void {
     this.apiClient.getPostById(this.postId).subscribe(
       (data) => {
@@ -34,18 +32,6 @@ export class PostDetailComponent implements OnInit {
       },
       (error) => {
         console.error('Error fetching post details:', error);
-      }
-    );
-  }
-
-  // Fetch comments for this post
-  getPostComments(): void {
-    this.apiClient.getCommentsByPostId(this.postId).subscribe(
-      (data) => {
-        this.comments = data;
-      },
-      (error) => {
-        console.error('Error fetching comments:', error);
       }
     );
   }
@@ -59,7 +45,7 @@ export class PostDetailComponent implements OnInit {
       () => {
         this.isEditing = false;
         alert('Post updated successfully');
-        this.router.navigate(['/posts']);
+        this.router.navigate(['/posts']);  
       },
       (error) => {
         console.error('Error updating post:', error);
@@ -71,7 +57,7 @@ export class PostDetailComponent implements OnInit {
     this.apiClient.deletePost(this.postId).subscribe(
       () => {
         alert('Post deleted successfully');
-        this.router.navigate(['/posts']);
+        this.router.navigate(['/posts']);  
       },
       (error) => {
         console.error('Error deleting post:', error);
@@ -81,6 +67,6 @@ export class PostDetailComponent implements OnInit {
 
   cancelEdit(): void {
     this.isEditing = false;
-    this.router.navigate(['/posts']);
+    this.router.navigate(['/posts']);  
   }
 }
