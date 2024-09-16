@@ -1,13 +1,27 @@
 <div class="post-detail-container">
+  <!-- Post Details -->
   <div class="post-content" *ngIf="!isEditing">
     <h2>{{ post.title }}</h2>
     <p>{{ post.body }}</p>
+
+    <!-- Comments Section -->
+    <div class="comments-section">
+      <h3>Comments</h3>
+      <div *ngFor="let comment of comments" class="comment-item">
+        <h4>{{ comment.name }}</h4>
+        <p>{{ comment.body }}</p>
+        <small>By {{ comment.email }}</small>
+        <hr />
+      </div>
+    </div>
+
     <div class="buttons">
       <button (click)="toggleEdit()">Update Post</button>
       <button (click)="deletePost()">Delete Post</button>
     </div>
   </div>
 
+  <!-- Edit Post Form -->
   <div *ngIf="isEditing">
     <label>Title:</label>
     <input [(ngModel)]="post.title" type="text" />
@@ -17,7 +31,7 @@
 
     <div class="buttons">
       <button (click)="updatePost()">Save Changes</button>
-      <button (click)="toggleEdit()">Cancel</button>
+      <button (click)="cancelEdit()">Cancel</button>
     </div>
   </div>
 </div>
